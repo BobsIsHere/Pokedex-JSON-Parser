@@ -1,3 +1,9 @@
+# Exclude output directories
+out/
+build/
+bin/
+obj/
+
 ### CMake ###
 CMakeLists.txt.user
 CMakeCache.txt

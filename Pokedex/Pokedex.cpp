@@ -1,4 +1,6 @@
 ﻿#include <nlohmann/json.hpp>
+#include <rapidjson/document.h>
+
 #include <string>
 #include "Pokedex.h"
 
@@ -9,6 +11,9 @@ int main()
 {
 	// Parse the JSON file using Nlohmann JSON
 	NlohmannParser();
+
+	// Parse the JSON file using RapidJSON
+	RapidJsonParser();
 
 	return 0;
 }
@@ -24,5 +29,21 @@ void NlohmannParser()
 
 void RapidJsonParser()
 {
+	const char* jsonString = R"({"testKey": "testValue"})";
 
+	rapidjson::Document document;
+	document.Parse(jsonString);
+
+	if (document.HasParseError())
+	{
+		std::cerr << "Parse error: " << document.GetParseError() << std::endl;
+	}
+	else if (document.HasMember("testKey") && document["testKey"].IsString())
+	{
+		std::cout << "testKey: " << document["testKey"].GetString() << std::endl;
+	}
+	else
+	{
+		std::cerr << "'testKey' not found or is not a string." << std::endl;
+	}
 }
