@@ -6,6 +6,10 @@
 			[
 				{
 					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
@@ -17,12 +21,27 @@
 					[
 						0
 					]
+				},
+				{
+					"build" : "_deps/nlohmannjson-build",
+					"jsonFile" : "directory-_deps.nlohmannjson-build-Debug-bcfdce6d6bfb7a7d4032.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "out/build/x64-debug/_deps/nlohmannjson-src"
 				}
 			],
 			"name" : "Debug",
 			"projects" : 
 			[
 				{
+					"childIndexes" : 
+					[
+						1
+					],
 					"directoryIndexes" : 
 					[
 						0
@@ -32,6 +51,14 @@
 					[
 						0
 					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0
 				}
 			],
 			"targets" : 
@@ -39,7 +66,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Pokedex::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Pokedex-Debug-8e0e248ca296845b0889.json",
+					"jsonFile" : "target-Pokedex-Debug-56508ea03c7c5b38496d.json",
 					"name" : "Pokedex",
 					"projectIndex" : 0
 				}
