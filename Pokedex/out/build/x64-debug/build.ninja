@@ -50,8 +50,18 @@ cmake_ninja_workdir = C$:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\out\build\x64-
 build cmake_object_order_depends_target_Pokedex: phony || .
 
 build CMakeFiles\Pokedex.dir\Pokedex.cpp.obj: CXX_COMPILER__Pokedex_unscanned_Debug C$:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\Pokedex.cpp || cmake_object_order_depends_target_Pokedex
+  DEFINES = -DUSE_NLOHMANN
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -MDd
-  INCLUDES = -IC:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\out\build\x64-debug\_deps\rapidjson-src\include -IC:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\out\build\x64-debug\_deps\nlohmannjson-src\include
+  INCLUDES = -IC:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\out\build\x64-debug\_deps\nlohmannjson-src\include
+  OBJECT_DIR = CMakeFiles\Pokedex.dir
+  OBJECT_FILE_DIR = CMakeFiles\Pokedex.dir
+  TARGET_COMPILE_PDB = CMakeFiles\Pokedex.dir\
+  TARGET_PDB = Pokedex.pdb
+
+build CMakeFiles\Pokedex.dir\JsonParser.cpp.obj: CXX_COMPILER__Pokedex_unscanned_Debug C$:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\JsonParser.cpp || cmake_object_order_depends_target_Pokedex
+  DEFINES = -DUSE_NLOHMANN
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -MDd
+  INCLUDES = -IC:\GitHubFiles\Pokedex-JSON-Parser\Pokedex\out\build\x64-debug\_deps\nlohmannjson-src\include
   OBJECT_DIR = CMakeFiles\Pokedex.dir
   OBJECT_FILE_DIR = CMakeFiles\Pokedex.dir
   TARGET_COMPILE_PDB = CMakeFiles\Pokedex.dir\
@@ -65,7 +75,7 @@ build CMakeFiles\Pokedex.dir\Pokedex.cpp.obj: CXX_COMPILER__Pokedex_unscanned_De
 #############################################
 # Link the executable Pokedex.exe
 
-build Pokedex.exe: CXX_EXECUTABLE_LINKER__Pokedex_Debug CMakeFiles\Pokedex.dir\Pokedex.cpp.obj
+build Pokedex.exe: CXX_EXECUTABLE_LINKER__Pokedex_Debug CMakeFiles\Pokedex.dir\Pokedex.cpp.obj CMakeFiles\Pokedex.dir\JsonParser.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

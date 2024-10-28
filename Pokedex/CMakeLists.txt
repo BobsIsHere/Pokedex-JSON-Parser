@@ -1,8 +1,10 @@
 ﻿cmake_minimum_required (VERSION 3.20)
 project ("Pokedex")
 
-# Add source to this project's executable.
-add_executable (Pokedex "Pokedex.cpp" "Pokedex.h")
+option(USE_NLOHMANN "Use Nlohmann JSON" ON)
+
+# Add source to this project's executable
+add_executable (Pokedex "Pokedex.cpp" "Pokedex.h" "JsonParser.h" "JsonParser.cpp")
 
 ## NLOHMANN LIBRARY FECTHING ##
 
@@ -31,8 +33,13 @@ FetchContent_Declare(
 # Make fecthed content available
 FetchContent_MakeAvailable(nlohmannJson rapidjson)
 
-# Link nlohmann JSON library
-target_link_libraries(Pokedex PRIVATE nlohmann_json::nlohmann_json)
-
-# Link rapidjson library
-target_include_directories(Pokedex PRIVATE ${rapidjson_SOURCE_DIR}/include)
+# Set preprocessor definition based on chosen library
+if(USE_NLOHMANN)
+    # Link nlohmann JSON library
+    target_compile_definitions(Pokedex PRIVATE USE_NLOHMANN)
+    target_link_libraries(Pokedex PRIVATE nlohmann_json::nlohmann_json)
+else()
+    # Link rapidjson library
+    target_compile_definitions(Pokedex PRIVATE USE_NLOHMANN)
+    target_include_directories(Pokedex PRIVATE ${rapidjson_SOURCE_DIR}/include)
+endif()
