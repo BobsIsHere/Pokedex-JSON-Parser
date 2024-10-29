@@ -1,6 +1,14 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <vector>
+
+struct PokemonData
+{
+	int id;
+	std::string name;
+	std::vector<std::string> type;
+};
 
 class JsonParser final
 {
@@ -13,9 +21,8 @@ public:
 	JsonParser& operator=(const JsonParser& other) = delete;
 	JsonParser& operator=(JsonParser&& other) = delete;
 
-	std::unique_ptr<JsonParser> CreateParser();
-
-	void ParseJsonFile(const std::string& filePath);
+	std::vector<PokemonData> ParsePokemonList(const std::string& filePath);
+	void PrintPokemonList(const std::vector<PokemonData>& pokemonList);
 
 private:
 #ifdef USE_NLOHMANN_LIB
