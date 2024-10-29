@@ -18,9 +18,6 @@ public:
 
 	std::vector<PokemonData> ParsePokemonList(const std::string& filePath);
 	void PrintPokemonList(const std::vector<PokemonData>& pokemonList);
-
-private:
-
 };
 
 // ---- NLOHMANN JSON IMPLEMENTATION ----
@@ -44,7 +41,6 @@ std::vector<PokemonData> JsonParser::NlohmannImpl::ParsePokemonList(const std::s
 	}
 
 	nlohmann::json jsonData;
-	//file >> jsonData;
 
 	try
 	{
@@ -94,6 +90,7 @@ void JsonParser::NlohmannImpl::PrintPokemonList(const std::vector<PokemonData>& 
 
 #else
 #include <rapidjson/document.h>
+#include <rapidjson/istreamwrapper.h>
 class JsonParser::RapidJsonImpl
 {
 public:
@@ -105,10 +102,8 @@ public:
 	RapidJsonImpl& operator=(const RapidJsonImpl& other) = delete;
 	RapidJsonImpl& operator=(RapidJsonImpl&& other) = delete;
 
-	void ParseJsonFile(const std::string& filePath);
-
-private:
-
+	std::vector<PokemonData> ParsePokemonList(const std::string& filePath);
+	void PrintPokemonList(const std::vector<PokemonData>& pokemonList);
 };
 
 // ---- RAPIDJSON IMPLEMENTATION ----
@@ -120,9 +115,74 @@ JsonParser::RapidJsonImpl::~RapidJsonImpl()
 {
 }
 
-void JsonParser::RapidJsonImpl::ParseJsonFile(const std::string& filePath)
+std::vector<PokemonData> JsonParser::RapidJsonImpl::ParsePokemonList(const std::string& filePath)
 {
-	std::cout << filePath << ", RapidJson" << std::endl;
+	std::vector<PokemonData> pokemonList{};
+
+	std::ifstream file{ filePath };
+	if (!file.is_open())
+	{
+		std::cerr << "Failed to open file: " << filePath << std::endl;
+		return pokemonList;
+	}
+
+	rapidjson::IStreamWrapper stream{ file };
+	rapidjson::Document jsonData{};
+	jsonData.ParseStream(stream);
+
+	if (jsonData.HasParseError())
+	{
+		std::cerr << "Failed to parse JSON file: " << jsonData.GetParseError() << std::endl;
+		return pokemonList; 
+	}
+
+	if (!jsonData.IsObject() || !jsonData.HasMember("pokemon") || !jsonData["pokemon"].IsArray())
+	{
+		std::cerr << "Invalid JSON format" << std::endl;
+		return pokemonList; 
+	}
+
+	const auto& pokemonArray = jsonData["pokemon"].GetArray();
+	for (const auto& pokemon : pokemonArray)
+	{
+		PokemonData tempPokemon{};
+		tempPokemon.id = pokemon["id"].GetInt(); 
+		tempPokemon.name = pokemon["name"].GetString();
+
+		for (const auto& type : pokemon["type"].GetArray())
+		{
+			if (type.IsString())
+			{
+				tempPokemon.type.push_back(type.GetString());
+			}
+		}
+
+		pokemonList.push_back(tempPokemon);
+	}
+
+	return pokemonList; 
+}
+
+void JsonParser::RapidJsonImpl::PrintPokemonList(const std::vector<PokemonData>& pokemonList)
+{
+	for (const auto& pokemon : pokemonList)
+	{
+		std::cout << pokemon.id << ". ";
+		std::cout << pokemon.name;
+		std::cout << " [";
+
+		for (size_t idx = 0; idx < pokemon.type.size(); ++idx)
+		{
+			std::cout << pokemon.type[idx];
+
+			if (idx != pokemon.type.size() - 1)
+			{
+				std::cout << ", ";
+			}
+		}
+
+		std::cout << "]" << std::endl;
+	}
 }
 #endif
 #endif
