@@ -1,6 +1,8 @@
+#include <iostream>
 #include "JsonParser.h"
 
-#ifdef USE_NLOHMANN
+#ifdef USE_NLOHMANN_LIB
+#if USE_NLOHMANN_LIB == true
 #include <nlohmann/json.hpp>
 class JsonParser::NlohmannImpl
 {
@@ -30,7 +32,7 @@ JsonParser::NlohmannImpl::~NlohmannImpl()
 
 void JsonParser::NlohmannImpl::ParseJsonFile(const std::string& filePath)
 {
-
+	std::cout << filePath << ", Nlohmann" << std::endl;
 }
 #else
 #include <rapidjson/document.h>
@@ -62,17 +64,20 @@ JsonParser::RapidJsonImpl::~RapidJsonImpl()
 
 void JsonParser::RapidJsonImpl::ParseJsonFile(const std::string& filePath)
 {
-
+	std::cout << filePath << ", RapidJson" << std::endl;
 }
+#endif
 #endif
 
 // ---- JSON PARSER CLASS IMPLEMENTATION ----
 JsonParser::JsonParser()
 {
-#ifdef USE_NLOHMANN
+#ifdef USE_NLOHMANN_LIB
+#if USE_NLOHMANN_LIB == true
 	m_pNlohmannImpl = std::make_unique<NlohmannImpl>();
 #else
 	m_pRapidJsonImpl = std::make_unique<RapidJsonImpl>();
+#endif
 #endif
 }
 
@@ -82,10 +87,12 @@ JsonParser::~JsonParser()
 
 void JsonParser::ParseJsonFile(const std::string& filePath)
 {
-#ifdef USE_NLOHMANN
+#ifdef USE_NLOHMANN_LIB
+#if USE_NLOHMANN_LIB == true
 	m_pNlohmannImpl->ParseJsonFile(filePath);
 #else
 	m_pRapidJsonImpl->ParseJsonFile(filePath);
+#endif
 #endif
 }
 

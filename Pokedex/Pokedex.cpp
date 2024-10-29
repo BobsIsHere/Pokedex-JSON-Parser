@@ -5,6 +5,7 @@
 int main()
 {
 	JsonParser parser;
+	parser.ParseJsonFile("pokedex.json");
 
 	return 0;
 }

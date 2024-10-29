@@ -18,12 +18,13 @@ public:
 	void ParseJsonFile(const std::string& filePath);
 
 private:
-#ifdef USE_NLOHMANN
+#ifdef USE_NLOHMANN_LIB
+#if USE_NLOHMANN_LIB == true
 	class NlohmannImpl;
 	std::unique_ptr<NlohmannImpl> m_pNlohmannImpl;
 #else
 	class RapidJsonImpl;
 	std::unique_ptr<RapidJsonImpl> m_pRapidJsonImpl;
 #endif
-
+#endif
 };
