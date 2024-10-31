@@ -1,6 +1,6 @@
 # Pokedex-JSON-Parser
 
-For this parser project I chose the [Nlohmann/json] library and the [Tencent/RapidJson] library.
+This project uses the [Nlohmann/json](https://github.com/nlohmann/json) library and the [Tencent/RapidJson](https://github.com/Tencent/rapidjson) library for JSON parsing.
 
 ## Setup Instructions
 
