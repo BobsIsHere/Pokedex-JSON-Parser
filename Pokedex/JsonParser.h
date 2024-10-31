@@ -6,7 +6,7 @@
 struct PokemonData
 {
 	int id;
-	std::string name;
+	std::string name; 
 	std::vector<std::string> type;
 };
 
