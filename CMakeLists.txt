@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(USE_NLOHMANN "Use Nlohmann JSON" ON)
 
 # Add source to this project's executable
-add_executable(Pokedex "Pokedex/Pokedex.cpp" "Pokedex/Pokedex.h" "Pokedex/JsonParser.h" "Pokedex/JsonParser.cpp")
+add_executable(Pokedex "Source/Pokedex.cpp" "Source/Pokedex.h" "Source/JsonParser.h" "Source/JsonParser.cpp")
 
-add_subdirectory(Pokedex)
+add_subdirectory(Source)
 
 ## COPY CONTENT FOLDER ##
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Content)
