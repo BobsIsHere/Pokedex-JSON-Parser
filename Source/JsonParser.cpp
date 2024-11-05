@@ -86,6 +86,8 @@ void JsonParser::NlohmannImpl::PrintPokemonList(const std::vector<PokemonData>& 
 
 		std::cout << "]" << std::endl;
 	}
+
+	std::cin.get();
 }
 
 #else
@@ -183,6 +185,8 @@ void JsonParser::RapidJsonImpl::PrintPokemonList(const std::vector<PokemonData>&
 
 		std::cout << "]" << std::endl;
 	}
+
+	std::cin.get();
 }
 #endif
 #endif
